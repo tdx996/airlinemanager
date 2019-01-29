@@ -9,3 +9,6 @@ Install instructions:
 * Change database.yml
 
 * Run the app!
+
+There are a few airline employees in the users table.
+They all choose a very insecure password: test123.
