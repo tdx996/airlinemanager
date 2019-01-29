@@ -34,7 +34,7 @@ CSV.foreach(Rails.root.join('db/seeds/airports.csv'), headers: false) do |row|
 		a.country = row[3]
 		a.lat = row[6]
 		a.lng = row[7]
-		a.alt = row[8]
+		a.alt = row[8]	
 		a.timezone = row[9]
 	end
 end

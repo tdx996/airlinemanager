@@ -116,7 +116,7 @@ $(document).ready(function() {
 
 		AppRails.submitModalForm('#NewFlightModal', {
 			success: function(data) {
-				AppRails.loadView('/flights_list', '#FlightList');
+				AppRails.loadView('/flights/list', '#FlightList');
 			},
 			error: function(data) {
 
@@ -192,35 +192,7 @@ $(document).ready(function() {
 		let href = $('#NewPassengerModal #passenger_name').data('href');
 		let fid = $('#NewPassengerModal #ticket_flight_id').val();
 
-		$('#NewPassengerModal #passenger_name').autocomplete({
-            source: function( request, response ) {
-                $.ajax({
-                    url: href,
-                    dataType: "JSON",
-                    data: {
-                        q: request.term,
-                        flight_id: fid,
-                    },
-                    success: function( data ) {
-                        if (data.status)
-                            response(data.list);
-                    }
-                });
-            },
-            select: function( event, ui ) {
-                $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-                console.log(ui.item);
-                $('#NewPassengerModal #passenger_name').val(ui.item.label);
-                $('#NewPassengerModal #ticket_passenger_id').val(ui.item.value);
-            },
-            open: function() {
-                $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-            },
-            close: function() {
-                $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-            },
-            appendTo: '#NewPassengerModal',
-        });
+		$('#NewPassengerModal #passenger_name').autocomplete(AppRails.passengerAutocompleteConfig('#NewPassengerModal', href, fid));
 	});
 
 	$(document).on('shown.bs.modal', '#EditPassengerModal', function(e) {
@@ -232,35 +204,7 @@ $(document).ready(function() {
 		let href = $('#EditPassengerModal #passenger_name').data('href');
 		let fid = $('#EditPassengerModal #ticket_flight_id').val();
 
-		$('#EditPassengerModal #passenger_name').autocomplete({
-            source: function( request, response ) {
-                $.ajax({
-                    url: href,
-                    dataType: "JSON",
-                    data: {
-                        q: request.term,
-                        flight_id: fid,
-                    },
-                    success: function( data ) {
-                        if (data.status)
-                            response(data.list);
-                    }
-                });
-            },
-            select: function( event, ui ) {
-                $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-                console.log(ui.item);
-                $('#EditPassengerModal #passenger_name').val(ui.item.label);
-                $('#EditPassengerModal #ticket_passenger_id').val(ui.item.value);
-            },
-            open: function() {
-                $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-            },
-            close: function() {
-                $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-            },
-            appendTo: '#EditPassengerModal',
-        });
+		$('#EditPassengerModal #passenger_name').autocomplete(AppRails.passengerAutocompleteConfig('#EditPassengerModal', href, fid));
 	});
 
 	$(document).on('submit', '#NewPassengerModal form', function(e) {
@@ -313,6 +257,28 @@ $(document).ready(function() {
 
 		AppRails.loadView($(this).data('href'));
 	});
+
+	$(document).on('click', '.delete-flight', function(e) {
+		e.preventDefault();
+
+		let href = $(this).data('href');
+
+		$('#DeleteFlightModal').modal('show');
+		$('#DeleteFlightModal #ConfirmBtn').on('click', function(e) {
+			AppRails.deleteAction(href, {
+				success: function() {
+					AppRails.loadView('/flights/list', '#FlightList');
+				},
+
+				errors: function() {
+					$('#DeleteFlightModal').modal('hide');
+					$('#DeleteFlightModal').on('hidden.bs.modal', function(e) {
+						$('#DeleteFlightErrorModal').modal('show');
+					});
+				}
+			});
+		});
+	});
 });
 
 function ajax(options) {
@@ -322,6 +288,42 @@ function ajax(options) {
 }
 
 AppRails = {
+	passengerAutocompleteConfig: function (selector, href, fid) {
+		return {
+            source: function(request, response) {
+                $.ajax({
+                    url: href,
+                    dataType: "JSON",
+                    data: {
+                        q: request.term,
+                        flight_id: fid,
+                    },
+                    success: function(data) {
+                        if (data.status)
+                            response(data.list);
+                    }
+                });
+            },
+            select: function(e, ui) {
+            	e.preventDefault();
+                $(this).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+                $(selector +' #passenger_name').val(ui.item.label);
+                $(selector +' #ticket_passenger_id').val(ui.item.value);
+            },
+            focus: function(e, ui) {
+            	e.preventDefault();
+                $(selector +' #passenger_name').val(ui.item.label);
+            },
+            open: function() {
+                $(this).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+            },
+            close: function() {
+                $(this).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+            },
+            appendTo: selector,
+        };
+	},
+
 	loadSelect2Data: function(selector, href, callbacks = {}) {
 		ajax({
 			url: href,
@@ -359,6 +361,8 @@ AppRails = {
 			success: function(data) {
 				if (data.status) {
 					if (callbacks.success) callbacks.success(data);
+				} else {
+					if (callbacks.errors) callbacks.errors();
 				}
 			},
 			errors: function(data) {

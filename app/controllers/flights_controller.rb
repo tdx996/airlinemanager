@@ -34,6 +34,10 @@ class FlightsController < ApplicationController
 	def show
 		@flight = Flight.find(params[:id])
 
+		if @flight.airline_id != current_user.airline_id
+			abort "Not allowed"
+		end
+
 		@tickets = @flight.tickets
 
 		# return view in JSON
@@ -48,7 +52,7 @@ class FlightsController < ApplicationController
 	end
 
 	def create
-		@flight = current_user.airline.flights.create(flight_params)
+		@flight = current_user.airline.flights.new(flight_params(true))
 		if (@flight.save)
 			render :json => {
 				:status => true
@@ -68,6 +72,10 @@ class FlightsController < ApplicationController
 	def basic_info
 		@flight = Flight.find(params[:id])
 
+		if @flight.airline_id != current_user.airline_id
+			abort "Not allowed"
+		end
+
 		# return view in JSON
 		with_format :html do
 	    	@view = render_to_string :partial => 'flights/basic_info', :locals => { flight: @flight}
@@ -81,6 +89,10 @@ class FlightsController < ApplicationController
 	def passengers
 		@flight = Flight.find(params[:id])
 
+		if @flight.airline_id != current_user.airline_id
+			abort "Not allowed"
+		end
+
 		with_format :html do
 	    	@view = render_to_string :partial => 'flights/passengers', :locals => { flight: @flight, tickets: @flight.tickets, seats: @flight.availableSeats}
 		end
@@ -92,6 +104,10 @@ class FlightsController < ApplicationController
 
 	def seats
 		@flight = Flight.find(params[:id])
+
+		if @flight.airline_id != current_user.airline_id
+			abort "Not allowed"
+		end
 
 		render :json => {
 			:status => true,
@@ -105,9 +121,19 @@ class FlightsController < ApplicationController
 	def edit
 		@flight = Flight.find(params[:id])
 
+		if @flight.airline_id != current_user.airline_id
+			abort "Not allowed"
+		end
+
+		@airports = Airport.limit(50).all.to_a
+		# abort @airports.inspect
+		# @airports << [@flight.src_airport, @flight.dst_airport]
+		@airports.push(@flight.src_airport)
+		@airports.push(@flight.dst_airport)
+
 		# return view in JSON
 		with_format :html do
-	    	@view = render_to_string :partial => 'flights/edit', :locals => { flight: @flight, airports: Airport.limit(50).all}
+	    	@view = render_to_string :partial => 'flights/edit', :locals => { flight: @flight, airports: @airports}
 		end
 		render :json => { 
 			:status => true,
@@ -118,7 +144,11 @@ class FlightsController < ApplicationController
 	def update
 		@flight = Flight.find(params[:id])
 
-		if (@flight.update(flight_params))
+		if @flight.airline_id != current_user.airline_id
+			abort "Not allowed"
+		end
+
+		if (@flight.update(flight_params(false)))
 			render :json => {
 				:status => true
 			}
@@ -134,8 +164,27 @@ class FlightsController < ApplicationController
 		end
 	end
 
-	private def flight_params
-		params.require(:flight).permit(:src_airport_id, :dst_airport_id, :arrival_at, :departure_at, :price, :capacity)
+	def destroy
+		@flight = Flight.find(params[:id])
+
+		if @flight.airline_id != current_user.airline_id
+			abort "Not allowed"
+		end
+
+		if (@flight.tickets.count > 0)
+			render :json => { :status => false }
+		else
+			@flight.destroy
+			render :json => { :status => true }
+		end
+	end
+
+	private def flight_params(create)
+		if (create)
+			params.require(:flight).permit(:src_airport_id, :dst_airport_id, :arrival_at, :departure_at, :price, :capacity)
+		else
+			params.require(:flight).permit(:src_airport_id, :dst_airport_id, :arrival_at, :departure_at, :price)
+		end
 	end
 
 end

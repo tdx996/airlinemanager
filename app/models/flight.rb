@@ -66,6 +66,23 @@ class Flight < ApplicationRecord
 
 	#
 
+	def allSeats
+		@seats = {}
+		for i in 0..(self.capacity/6-1)
+			for j in 0..5
+				@seat = (i+1).to_s + "ABCDEF"[j].to_s
+				@seats[@seat] = @seat
+			end
+		end
+		if ((self.capacity - (i+1)*6-1) > 0)
+			for j in 0..(self.capacity - (i+1)*6-1)
+				@seat = (i+1).to_s + "ABCDEF"[j].to_s
+				@seats[@seat] = @seat
+			end 
+		end
+		return @seats
+	end
+
 	def availableSeats
 		@seats = {}
 		@tickets = self.tickets.pluck(:seat)
@@ -76,6 +93,14 @@ class Flight < ApplicationRecord
 					@seats[@seat] = @seat
 				end
 			end
+		end
+		if ((self.capacity - (i+1)*6-1) > 0)
+			for j in 0..(self.capacity - (i+1)*6-1)
+				@seat = (i+1).to_s + "ABCDEF"[j].to_s
+				unless @tickets.include?(@seat) 
+					@seats[@seat] = @seat
+				end
+			end 
 		end
 		return @seats
 	end

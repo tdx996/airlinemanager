@@ -24,6 +24,7 @@
 						<td><%= flight.statusBadge.html_safe %></td>
 						<td class="actions">
 							<a href="javascript: void(0)" class="btn btn-primary show-flight" data-href="<%= url_for flight_path(flight) %>"><%= t(:view) %></a>
+							<a href="javascript: void(0)" class="btn btn-danger delete-flight" data-href="<%= url_for flight_path(flight) %>"><%= t(:delete) %></a>
 						</td>
 					</tr>
 				<% end %>

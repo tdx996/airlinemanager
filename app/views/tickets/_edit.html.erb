@@ -1,4 +1,4 @@
-<div class="modal fade colored-header colored-header-primary show" id="EditPassengerModal" tabindex="-1" role="dialog">
+<div class="modal fade colored-header colored-header-primary show" id="EditPassengerModal" role="dialog">
 	<div class="modal-dialog">
 		<%= form_for(:ticket, url: flight_ticket_path(flight, ticket), method: :patch, :html => { 'data-redirect' => url_for(flights_passengers_path(flight)) }) do |f| %>
 			<div class="modal-content be-loading">
