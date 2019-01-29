@@ -10,5 +10,16 @@ Install instructions:
 
 * Run the app!
 
-There are a few airline employees in the users table.
+There are a few airline employees:
+
+* test@private-flight.com
+
+* test@135-airways.com
+
+* test@1time-airline.com
+
+* test@213-flight-unit.com
+
+* test@3D-aviation.com
+
 They all choose a very insecure password: test123.
