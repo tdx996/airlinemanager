@@ -1,24 +1,11 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Install instructions:
 
-Things you may want to cover:
+* Clone the repo
 
-* Ruby version
+* Import the airlinemanager/db/airlinemanager.sql file
 
-* System dependencies
+* Change database.yml
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Run the app!
