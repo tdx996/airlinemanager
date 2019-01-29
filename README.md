@@ -4,9 +4,9 @@ Install instructions:
 
 * Clone the repo
 
-* Import the airlinemanager/db/airlinemanager.sql file
+* Import the airlinemanager/db/airlinemanager.sql file into the database
 
-* Change database.yml
+* Update database.yml
 
 * Run the app!
 
