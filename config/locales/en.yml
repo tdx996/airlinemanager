@@ -1,0 +1,85 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  # APP 
+
+  APP_NAME: "Airline Manager"
+
+  # Dashboard
+
+  :dashboard: "Dashboard"
+
+  # Flights
+
+  flights: "Flights"
+  new_flight: "New Flight"
+  flightid: "Flight ID"
+  flight_id: "Flight ID #%{id}"
+  src_airport: "Source Airport"
+  dst_airport: "Destination Airport"
+  basic_info: "Basic Info"
+  passengers: "Passengers"
+
+  helpers: 
+    label:
+      flight:
+        src_ariport_id: "Source Airport"
+        dst_airport_id: "Destination Airport"
+        departure_at: "Departure at"
+        arrival_at: "Arrival at"
+        capacity: "Capacity"
+        seats: "Seats"
+
+  activerecord: 
+    attributes:
+      flight:
+        statuses:
+          ready_to_book: "Ready to book"
+          boarding: "Boarding"
+          taking_off: "Taking off"
+          in_air: "In air"
+          landing: "Landing"
+          waiting: "Waiting"
+
+  remove_passenger_msg: "Are you sure you want to remove the passenger?"
+
+  airline: 'Airline'
+
+  # Actions
+
+  new: "New"
+  view: "View"
+  save: "Save"
+  cancel: "Cancel"
+  delete: "Delete"
+  proceed: "Proceed"
+  logout: "Logout"

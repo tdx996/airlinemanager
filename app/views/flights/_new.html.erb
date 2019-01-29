@@ -1,0 +1,69 @@
+<!-- NEW FLIGHT MODAL -->
+<div class="modal fade colored-header colored-header-primary show" id="NewFlightModal" role="dialog">
+	<div class="modal-dialog">
+		<%= form_for(:flight, url: flights_path) do |f| %>
+			<div class="modal-content be-loading">
+				<div class="modal-header modal-header-colored">
+					<h3 class="modal-title"><%= t(:new_flight) %></h3>
+					<button class="close md-close" type="button" data-dismiss="modal" aria-hidden="true">
+						<span class="mdi mdi-close"></span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-6">
+							<div class="form-group">
+								<%= f.label(:src_ariport_id) %> 
+								<%= f.select(:src_airport_id, airports.collect {|a| [a.name, a.id]}, {}, { class: 'select2' })%>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-group">
+								<%= f.label(:dst_airport_id) %>
+								<%= f.select(:dst_airport_id, airports.collect {|a| [a.name, a.id]}, {}, { class: 'select2' }) %>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<div class="form-group">
+								<%= f.label :departure_at %>
+								<%= f.text_field(:departure_at, { :class => 'form-control', :id => 'departure_at', :autocomplete => 'off' }) %>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-group">
+								<%= f.label :arrival_at %>
+								<%= f.text_field(:arrival_at, { :class => 'form-control', :id => 'arrival_at', :autocomplete => 'off' }) %>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-6">
+							<div class="form-group">
+								<%= f.label :price %>
+								<%= f.text_field(:price, { :class => 'form-control', :id => 'price' }) %>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-group">
+								<%= f.label :capacity %>
+								<%= f.text_field(:capacity, { :class => 'form-control', :id => 'capacity' }) %>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary md-close" type="button" data-dismiss="modal">Cancel</button>
+					<%= f.submit({:class => 'btn btn-primary'}) %>
+				</div>
+				<div class="be-spinner">
+					<svg width="40px" height="40px" viewBox="0 0 66 66" xmlns="http://-www.w3.org/2000/svg">
+						<circle class="circle" fill="none" stroke-width="4" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+					</svg>
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>

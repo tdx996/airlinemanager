@@ -1,0 +1,39 @@
+<div class="card card-border be-loading" id="PassengersCard">
+	<div class="card-header card-header-divider">
+	    <%= t :passengers %>
+	    <div class="tools dropdown">
+	    	<span class="icon mdi mdi-plus" id="NewPassengerBtn" data-toggle="modal" data-target="#NewPassengerModal"></span>
+	    	<span class="icon mdi mdi-refresh-sync"></span>
+	    </div>
+	</div>
+	<div class="card-body">
+		<div class="plane">
+			<div class="plane-head"></div>
+			<div class="plane-body">
+				<% for i in 0..(flight.capacity / 6-1) %>
+					<div class="plane-row">
+						<% for j in 0..5 %>
+							<% @seat = (i+1).to_s + "ABCDEF"[j].to_s %>
+							<div 
+								class="plane-seat <%= tickets.pluck(:seat).include?(@seat) ? 'sold' : '' %>" 
+								data-href="<%= tickets.pluck(:seat).include?(@seat) ? url_for(edit_flight_ticket_path(flight.id, tickets.select {|t| t.seat == @seat }.first.id)) : '' %>" 
+								data-seat="<%= @seat %>"></div>
+						<% end %>
+						<div class="clearfix"></div>
+					</div>
+				<% end %>
+				<div class="plane-row">
+					<% for j in 0..(flight.capacity - (i+1)*6-1) %>
+						<% @seat = (i+1).to_s + "ABCDEF"[j].to_s %>
+						<div 
+							class="plane-seat <%= tickets.pluck(:seat).include?(@seat) ? 'sold' : '' %>" 
+							data-href="<%= tickets.pluck(:seat).include?(@seat) ? url_for(edit_flight_ticket_path(flight.id, tickets.select {|t| t.seat == @seat }.first.id)) : '' %>" 
+							data-seat="<%= @seat %>"></div>
+					<% end %>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<div class="plane-tail"></div>
+		</div>
+	</div>
+</div>

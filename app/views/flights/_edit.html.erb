@@ -1,0 +1,62 @@
+<div class="card card-border be-loading" id="BasicFlightInfo">
+	<%= form_for(:flight, url: flight_path(flight), method: :patch, :html => { 'data-redirect' => url_for(flights_basic_info_path(flight)) }) do |f| %>
+        <div class="card-header card-header-divider">
+          <%= t :basic_info %>
+          <div class="tools dropdown">
+          	<button class="btn btn-danger mr-5" id="CancelEditBtn"><%= t :close %></button>
+			<%= f.submit({:class => 'btn btn-primary'}) %>
+          </div>
+        </div>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-6">
+					<div class="form-group">
+						<%= f.label(:src_ariport_id) %> 
+						<%= f.select(:src_airport_id, airports.collect {|a| [a.name, a.id]}, {}, { class: 'select2' })%>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="form-group">
+						<%= f.label(:dst_airport_id) %>
+						<%= f.select(:dst_airport_id, airports.collect {|a| [a.name, a.id]}, {}, { class: 'select2' }) %>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6">
+					<div class="form-group">
+						<%= f.label :departure_at %>
+						<%= f.text_field(:departure_at, { :value => flight.departure_at.strftime('%Y-%m-%d %H:%M'), :class => 'form-control', :id => 'departure_at', :autocomplete => 'off' }) %>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="form-group">
+						<%= f.label :arrival_at %>
+						<%= f.text_field(:arrival_at, { :value => flight.arrival_at.strftime('%Y-%m-%d %H:%M'), :class => 'form-control', :id => 'arrival_at', :autocomplete => 'off' }) %>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-6">
+					<div class="form-group">
+						<%= f.label :price %>
+						<%= f.text_field(:price, { :class => 'form-control', :id => 'price' }) %>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="form-group">
+						<%= f.label :capacity %>
+						<%= f.text_field(:capacity, { :class => 'form-control', :id => 'capacity' }) %>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="be-spinner">
+		  	<svg width="40px" height="40px" viewBox="0 0 66 66" xmlns="http://-www.w3.org/2000/svg">
+		  		<circle class="circle" fill="none" stroke-width="4" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+		  	</svg>
+	 	</div>
+	<% end %>
+</div>

@@ -1,0 +1,37 @@
+<p id=”alert”></p>
+
+<div class="splash-container">
+    <div class="card card-border-color card-border-color-primary">
+    	<div class="card-header">
+    		<i class="mdi mdi-airplane"></i> <%= t :APP_NAME %>
+    		<span class="splash-description">Please enter your user information.</span>
+    	</div>
+		<div class="card-body">
+			<% if alert %>
+				<div class="alert alert-danger alert-icon alert-icon-border alert-dismissible" role="alert">
+					<div class="icon"><span class="mdi mdi-close-circle-o"></span></div>
+					<div class="message">
+						<button class="close" type="button" data-dismiss="alert" aria-label="Close">
+							<span class="mdi mdi-close" aria-hidden="true"></span>
+						</button>
+						<p><%= alert %></p>
+					</div>
+				</div>
+			<% end %>
+			<%= form_tag sessions_path do |form| %>
+				<div class="form-group">
+					<%= text_field_tag :email, nil, { class: 'form-control', autocomplete: 'off', placeholder: 'Email' } %>
+					<!-- <input class="form-control" id="username" type="text" placeholder="Username" autocomplete="off"> -->
+				</div>
+				<div class="form-group">
+				    <%= password_field_tag :password, nil, { class: 'form-control', placeholder: 'Password'} %>
+					<!-- <input class="form-control" id="password" type="password" placeholder="Password"> -->
+				</div>
+          		<div class="form-group login-submit">
+      			    <%= submit_tag "Login", class: 'btn btn-primary btn-xl' %>
+          			<!-- <a class="btn btn-primary btn-xl" href="index.html" data-dismiss="modal">Sign me in</a> -->
+          		</div>
+      		<% end %>
+  		</div>
+	</div>	
+</div>

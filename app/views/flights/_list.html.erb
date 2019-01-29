@@ -1,0 +1,35 @@
+<div class="card card-table be-loading" id="FlightList">
+    <div class="card-header">Basic Tables</div>
+    <div class="card-body">
+		<table class="table table-striped" id="FlightsTable">
+			<thead>
+				<tr>
+					<th style=""><%= t :flightid %></th>
+					<th style=""><%= t :src_airport %></th>
+					<th style=""><%= t :dst_airport %></th>
+					<th style=""><%= t :departure_at %></th>
+					<th style=""><%= t :arrival_at %></th>
+					<th style=""><%= t :status %></th>
+					<th class="actions"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% flights.each do |flight| %>
+					<tr>
+						<td><%= flight.id %></td>
+						<td><%= flight.src_airport.name %></td>
+						<td><%= flight.dst_airport.name %></td>
+						<td><%= flight.departure_at.strftime('%Y-%m-%d %H:%M') %></td>
+						<td><%= flight.arrival_at.strftime('%Y-%m-%d %H:%M') %></td>
+						<td><%= flight.statusBadge.html_safe %></td>
+						<td class="actions">
+							<a href="javascript: void(0)" class="btn btn-primary show-flight" data-href="<%= url_for flight_path(flight) %>"><%= t(:view) %></a>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<%= will_paginate flights %>
+    </div>
+	</div>
+</div>

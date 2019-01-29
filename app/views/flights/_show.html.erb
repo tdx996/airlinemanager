@@ -1,0 +1,54 @@
+<div class="main-content container-fluid be-loading" id="main-content">
+
+  <%= render partial: 'tickets/new', locals: { flight: flight, tickets: tickets, seats: flight.availableSeats } %>
+
+  <div class="modal fade colored-header colored-header-primary" id="EditPassengerModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content be-loading">
+        <div class="be-spinner">
+          <svg width="40px" height="40px" viewBox="0 0 66 66" xmlns="http://-www.w3.org/2000/svg">
+            <circle class="circle" fill="none" stroke-width="4" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="DeleteTicketModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" type="button" data-dismiss="modal" aria-hidden="true"><span class="mdi mdi-close"></span></button>
+          </div>
+          <div class="modal-body">
+            <div class="text-center">
+              <div class="text-danger"><span class="modal-main-icon mdi mdi-close-circle-o"></span></div>
+              <h3>Danger!</h3>
+              <p>Are you sure you want to remove the passenger?</p>
+              <div class="mt-8">
+                <button class="btn btn-space btn-secondary" id="CancelBtn" type="button" data-dismiss="modal"><%= t :cancel %></button>
+                <button class="btn btn-space btn-danger" id="ConfirmBtn" type="button" data-dismiss="modal"><%= t :proceed %></button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+
+	<div class="row">
+		<div class="col-md-6 col-sm-12">
+      <%= render partial: 'flights/basic_info', locals: { flight: flight } %>
+		</div>
+    <div class="col-md-6 col-sm-12">
+      <%= render partial: 'flights/passengers', locals: { flight: flight, tickets: tickets } %>
+    </div>
+	</div>
+
+
+  <div class="be-spinner">
+  	<svg width="40px" height="40px" viewBox="0 0 66 66" xmlns="http://-www.w3.org/2000/svg">
+  		<circle class="circle" fill="none" stroke-width="4" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+  	</svg>
+  </div>
+</div>

@@ -1,0 +1,175 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require bootstrap.min.css
+ *= require select2.min.css
+ *= require_tree .
+ *= require_self
+ *= require app.css
+ */
+
+ #main-content {
+ 	min-height: -webkit-fill-available;
+ }
+
+ .be-top-header .be-navbar-header .navbar-brand {
+	background: none;
+    width: auto;
+    color: #666;
+    font-size: 16pt;
+}
+
+.plane {
+	max-width: 300px;
+    margin: auto;
+}
+
+.plane-head {
+    background: #ccc;
+    width: 100%;
+    height: 300px;
+    border-radius: 50% 50%;
+    margin-bottom: -150px;
+}
+
+.plane-tail {
+	background: #ccc;
+    width: 100%;
+    height: 300px;
+    border-radius: 50% 50%;
+    margin-top: -150px;
+}
+
+.plane-body {
+	background: #ccc;
+	padding: 15px;
+	position: relative;
+	z-index: 1;
+}
+
+.plane-row {
+	margin-bottom: 20px;
+}
+
+.plane-body .plane-row:last-child {
+	margin-bottom: 0;
+}
+
+.plane-seat {
+	height: 25px;
+	width: 25px;
+	background: #fff;
+	cursor: pointer;
+	border-radius: 4px;
+}
+
+.plane-seat.sold {
+	background: #4285f4;
+}
+
+.plane-row .plane-seat:nth-child(1),
+.plane-row .plane-seat:nth-child(2),
+.plane-row .plane-seat:nth-child(3) {
+	float: left;
+	margin-left: 5px;
+	margin-right: 0;
+}
+
+.plane-row .plane-seat:nth-child(4),
+.plane-row .plane-seat:nth-child(5),
+.plane-row .plane-seat:nth-child(6) {
+	float: right;
+	margin-left: 0;
+	margin-right: 5px;
+}
+.plane-row .plane-seat:nth-child(1) {
+	margin-left: 0;
+}
+.plane-row .plane-seat:nth-child(4) {
+	margin-right: 0;
+} 
+
+.ui-autocomplete {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    float: left;
+    display: none;
+    min-width: 160px;
+    padding: 4px 0;
+    margin: 0 0 10px 25px;
+    list-style: none;
+    background-color: #ffffff;
+    border-color: #ccc;
+    border-color: rgba(0, 0, 0, 0.2);
+    border-style: solid;
+    border-width: 1px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    *border-right-width: 2px;
+    *border-bottom-width: 2px;
+}
+
+.ui-menu-item > div {
+    display: block;
+    padding: 3px 15px;
+    clear: both;
+    font-weight: normal;
+    line-height: 18px;
+    color: #555555;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.ui-state-hover, .ui-state-active {
+    text-decoration: none;
+    background-color: #5f99f5;
+    color: #fff !important;
+    border-radius: 0px;
+}
+
+.be-user-nav>li.dropdown .dropdown-menu .user-info .user-position:after {
+	border: none;
+}
+
+.be-user-nav>li.dropdown .dropdown-menu .user-info .user-position {
+	padding-left: 0;
+}
+
+.pagination {
+    padding: 10px;
+}
+.pagination > * {
+    font-size: 1.077rem;
+    line-height: 14px;
+    font-weight: 400;
+    padding: .7692rem .9231rem;
+    color: #404040;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    margin-left: 4px;
+}
+.pagination em.current {
+    z-index: 1;
+    color: #fff;
+    background-color: #4285f4;
+    border-color: #4285f4;
+}

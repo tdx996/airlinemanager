@@ -1,0 +1,50 @@
+<div class="card user-info-list card be-loading" id="BasicFlightInfo">
+  <div class="card-header card-header-divider">
+    <%= t :basic_info %>
+    <div class="tools dropdown">
+      <span class="icon mdi mdi-edit" id="EditFlightBtn" data-href="<%= url_for edit_flight_path(flight) %>"></span>
+      <span class="icon mdi mdi-refresh-sync"></span>
+    </div>
+  </div>
+  <div class="card-body">
+    <table class="no-border no-strip skills">
+      <tbody class="no-border-x no-border-y">
+        <tr>
+          <td class="icon"><span class="mdi mdi-pin"></span></td>
+          <td class="item"><%= t :src_airport %><span class="icon s7-portfolio"></span></td>
+          <td><%= flight.src_airport.name %></td>
+        </tr>
+        <tr>
+          <td class="icon"><span class="mdi mdi-pin"></span></td>
+          <td class="item"><%= t :dst_airport %><span class="icon s7-gift"></span></td>
+          <td><%= flight.dst_airport.name %></td>
+        </tr>
+        <tr>
+          <td class="icon"><span class="mdi mdi-alarm"></span></td>
+          <td class="item"><%= t :departure_at %><span class="icon s7-phone"></span></td>
+          <td><%= flight.departure_at.strftime('%Y-%m-%d %H:%M') %></td>
+        </tr>
+        <tr>
+          <td class="icon"><span class="mdi mdi-alarm"></span></td>
+          <td class="item"><%= t :arrival_at %><span class="icon s7-map-marker"></span></td>
+          <td><%= flight.arrival_at.strftime('%Y-%m-%d %H:%M') %></td>
+        </tr>
+        <tr>
+          <td class="icon"><span class="mdi mdi-accounts"></span></td>
+          <td class="item"><%= t :capacity %><span class="icon s7-global"></span></td>
+          <td><%= flight.capacity %></td>
+        </tr>
+        <tr>
+          <td class="icon"><span class="mdi mdi-money"></span></td>
+          <td class="item"><%= t :price %><span class="icon s7-global"></span></td>
+          <td><%= flight.price %>&euro;</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="be-spinner">
+    <svg width="40px" height="40px" viewBox="0 0 66 66" xmlns="http://-www.w3.org/2000/svg">
+      <circle class="circle" fill="none" stroke-width="4" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+    </svg>
+  </div>
+</div>

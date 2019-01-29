@@ -1,0 +1,12 @@
+ rails new #name# -d #mysql#
+ bundle install
+ rails server
+
+ rake routes
+
+ rake db:create
+ rake db:migrate
+
+ rails g model Comment username:string body:text post:references
+ rails g controller Posts
+ 
