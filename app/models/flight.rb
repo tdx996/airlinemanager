@@ -2,7 +2,6 @@ class Flight < ApplicationRecord
 
 	self.per_page = 10
 
-
 	before_save :default_values
 	def default_values
 		self.status ||= Flight.statuses[:ready_to_book]

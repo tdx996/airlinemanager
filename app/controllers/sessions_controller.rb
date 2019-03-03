@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
 
 	skip_before_action :require_login
 
-  	layout 'auth'
+  layout 'auth'
 
  	def new
   	end

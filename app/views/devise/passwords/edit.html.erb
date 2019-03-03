@@ -1,0 +1,40 @@
+<div class="splash-container">
+  <div class="card card-border-color card-border-color-primary">
+    <div class="card-header">
+      <i class="mdi mdi-airplane"></i> <%= t :APP_NAME %>
+      <span class="splash-description">Change your password</span>
+    </div>
+    <div class="card-body">
+      <% if alert %>
+        <div class="alert alert-danger alert-icon alert-icon-border alert-dismissible" role="alert">
+          <div class="icon"><span class="mdi mdi-close-circle-o"></span></div>
+          <div class="message">
+            <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+              <span class="mdi mdi-close" aria-hidden="true"></span>
+            </button>
+            <p><%= alert %></p>
+          </div>
+        </div>
+      <% end %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+        <%= f.hidden_field :reset_password_token %>
+        <div class="form-group">
+          <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+          <% end %>
+          <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: 'form-control', placeholder: 'New password' %>
+        </div>
+        <div class="form-group">
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', placeholder: 'Confirm new password' %>
+        </div>
+        <div class="form-group login-submit">
+          <%= submit_tag "Change my password", class: 'btn btn-primary btn-xl' %>
+        </div>
+
+        <%= render "devise/shared/links" %>
+
+      <% end %>
+    </div>
+  </div>
+</div>

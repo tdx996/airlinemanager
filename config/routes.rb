@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
+	devise_for :users, controllers: {
+			sessions: 			'users/sessions',
+			registrations: 	'users/registrations',
+			passwords: 			'users/passwords',
+      confirmations: 	'users/confirmations',
+	}
 
-	resources :users
+	# resources :users
 
-	resources :sessions, only: [:new, :create, :destroy]
-	get 'login', to: 'sessions#new', as: 'login'
-	get 'logout', to: 'sessions#destroy', as: 'logout'
+	# resources :sessions, only: [:new, :create, :destroy]
+	# get 'login', to: 'sessions#new', as: 'login'
+	# get 'logout', to: 'sessions#destroy', as: 'logout'
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
 	root 'home#index', as: 'home'
@@ -13,9 +19,10 @@ Rails.application.routes.draw do
 
 	get '/flights/list' => 'flights#list', as: 'flights_list'
 
-	resources :flights do 
+	resources :flights do
 		resources :tickets
-	end
+  end
+
 
 	get '/flights/:id/seats' => 'flights#seats', as: 'flight_seats'
 	get '/flights/:id/basic-info' => 'flights#basic_info', as: 'flights_basic_info'
@@ -23,7 +30,6 @@ Rails.application.routes.draw do
 
 	get '/passengers/autocomplete' => 'passengers#autocomplete', as: 'passengers_autocomplete'
 	get '/airports/autocomplete' => 'airports#autocomplete', as: 'airports_autocomplete'
-
-	get '/jobs/populate-airports' => 'jobs#populate_airports', as: 'jobs_populate_airports'
+	get '/airlines/autocomplete' => 'airlines#autocomplete', as: 'airlines_autocomplete'
 
 end
