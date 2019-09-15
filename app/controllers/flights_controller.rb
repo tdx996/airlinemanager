@@ -1,7 +1,5 @@
 class FlightsController < ApplicationController
 
-	include ApplicationHelper
-
 	def index
 		@flights = Flight.pagination(params, current_user)
 

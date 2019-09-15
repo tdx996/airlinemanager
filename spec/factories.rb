@@ -15,6 +15,12 @@ FactoryBot.define do
         airline_id { Airline.offset(Random.rand(Airline.count)).first.id }
     end
 
+    factory :confirmed_user, class: User, parent: :random_user do
+        # confirmation_token { nil }
+        # confirmed_at { Time.now }
+        after(:create) { |user| user.confirm }
+    end
+
     factory :random_flight, class: Flight do
         airline_id { Airline.random.first.id }
         src_airport_id { Airport.random.first.id }
